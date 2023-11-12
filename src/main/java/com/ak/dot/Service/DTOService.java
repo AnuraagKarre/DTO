@@ -30,6 +30,10 @@ public class DTOService {
         return null;
     }
 
+    public Optional<Entity> getEntData(int userId){
+        return dtoRepo.findById(userId);
+    }
+
     public DTOEntity converToDTO(Entity entity){
         DTOEntity dtoEntity = new DTOEntity();
         dtoEntity.setUserName(entity.getUserName());
