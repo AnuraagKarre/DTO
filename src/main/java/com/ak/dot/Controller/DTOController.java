@@ -1,17 +1,29 @@
 package com.ak.dot.Controller;
 
 import com.ak.dot.Entity.DTOEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ak.dot.Entity.Entity;
+import com.ak.dot.Service.DTOService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DTOController {
 
-    @PostMapping("/purchase/{userName}/{productName}/{amount}")
-    public String add(@PathVariable String userName,@PathVariable String productName,@PathVariable double amount ){
-      //  return "Hi" + dtoEntity.userName + "Thanks for ordering " + dtoEntity.productName + "for price" + dtoEntity.amount;
-        return "Hi" + userName + "Thanks for ordering " + productName + "for price" + amount;
+    private DTOService dtoservice;
+
+    public DTOController(DTOService dtoservice){
+        this.dtoservice = dtoservice;
+    }
+
+    @PostMapping("/purchase/save")
+    public Entity saveData(@RequestBody Entity entity){
+        dtoservice.saveData(entity);
+        return entity;
+    }
+
+    @GetMapping("/purchase/{userID}")
+    public DTOEntity getData (@PathVariable int userID){
+        return dtoservice.getData(userID);
+
+
     }
 }
